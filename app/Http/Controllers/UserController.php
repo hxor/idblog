@@ -107,7 +107,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!User::destroy($id)) return redirect()->back();
+
+        return redirect()->route('admin.users.index');
     }
 
     public function dataTable()
@@ -127,10 +129,19 @@ class UserController extends Controller
                         Edit
                         <span class="btn-label btn-label-right"><i class="fa fa-edit"></i></span>
                     </a>
-                    <button type="button" class="btn btn-sm btn-outline-danger" style="padding-bottom: 0px; padding-top: 0px;">
-                        Show
+                    <a  href="' . route('admin.users.destroy', $users->id) . '" 
+                        class="btn btn-sm btn-outline-danger" 
+                        style="padding-bottom: 0px; padding-top: 0px;"
+                        onclick="event.preventDefault(); document.getElementById(\'delete-form-' . $users->id . '\').submit();"
+                    >
+                        Delete
                         <span class="btn-label btn-label-right"><i class="fa fa-trash"></i></span>
-                    </button>
+                    </a>
+
+                    <form id="delete-form-' . $users->id . '" action="' . route('admin.users.destroy', $users->id) . '" method="POST" style="display: none;">
+                        ' . csrf_field() . '
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
                 ';
             })
             ->rawColumns(['user', 'action'])->make(true);
