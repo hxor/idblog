@@ -70,7 +70,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -82,7 +83,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:6',
+            'role' => 'required'
+        ]);
+
+        $user = User::findOrFail($id);
+        $request['password'] = $request->get('password') ? bcrypt($request->get('password')) : $user->password;
+        $request['avatar'] = $request->get('avatar') ? $request->get('avatar') : '/photos/user-icon.png';
+
+        $user->update($request->all());
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -109,10 +123,10 @@ class UserController extends Controller
                     Show
                     <span class="btn-label btn-label-right"><i class="fa fa-eye"></i></span>
                     </a>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" style="padding-bottom: 0px; padding-top: 0px;">
+                    <a href="' . route('admin.users.edit', $users->id) . '" class="btn btn-sm btn-outline-secondary" style="padding-bottom: 0px; padding-top: 0px;">
                         Edit
                         <span class="btn-label btn-label-right"><i class="fa fa-edit"></i></span>
-                    </button>
+                    </a>
                     <button type="button" class="btn btn-sm btn-outline-danger" style="padding-bottom: 0px; padding-top: 0px;">
                         Show
                         <span class="btn-label btn-label-right"><i class="fa fa-trash"></i></span>
