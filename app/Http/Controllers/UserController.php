@@ -120,29 +120,12 @@ class UserController extends Controller
                 return '<img src="' . asset($users->avatar) . '" height="32" width="32"> ' . $users->name;
             })
             ->addColumn('action', function ($users) {
-                return '
-                    <a href="' . route('admin.users.show', $users->id) . '" class="btn btn-sm btn-outline-info" style="padding-bottom: 0px; padding-top: 0px;">
-                    Show
-                    <span class="btn-label btn-label-right"><i class="fa fa-eye"></i></span>
-                    </a>
-                    <a href="' . route('admin.users.edit', $users->id) . '" class="btn btn-sm btn-outline-secondary" style="padding-bottom: 0px; padding-top: 0px;">
-                        Edit
-                        <span class="btn-label btn-label-right"><i class="fa fa-edit"></i></span>
-                    </a>
-                    <a  href="' . route('admin.users.destroy', $users->id) . '" 
-                        class="btn btn-sm btn-outline-danger" 
-                        style="padding-bottom: 0px; padding-top: 0px;"
-                        onclick="event.preventDefault(); document.getElementById(\'delete-form-' . $users->id . '\').submit();"
-                    >
-                        Delete
-                        <span class="btn-label btn-label-right"><i class="fa fa-trash"></i></span>
-                    </a>
-
-                    <form id="delete-form-' . $users->id . '" action="' . route('admin.users.destroy', $users->id) . '" method="POST" style="display: none;">
-                        ' . csrf_field() . '
-                        <input type="hidden" name="_method" value="DELETE">
-                    </form>
-                ';
+                return view('layouts.admin.partials._action', [
+                    'model' => $users,
+                    'url_show' => route('admin.users.show', $users->id),
+                    'url_edit' => route('admin.users.edit', $users->id),
+                    'url_destroy' => route('admin.users.destroy', $users->id)
+                ]);
             })
             ->rawColumns(['user', 'action'])->make(true);
     }
