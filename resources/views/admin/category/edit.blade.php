@@ -5,7 +5,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Users</a>
+            <a href="#">Categories</a>
           </li>
           <li class="breadcrumb-item active">Edit</li>
         </ol>
@@ -14,10 +14,10 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header text-white bg-primary">
-                Edit User
+                Edit Category
               </div>
-              {!! Form::model($user, ['route' => ['admin.users.update', $user->id], 'method' => 'PUT']) !!}
-              @include('admin.user._form')
+              {!! Form::model($category, ['route' => ['admin.categories.update', $category->id], 'method' => 'PUT']) !!}
+              @include('admin.category._form')
               {!! Form::close() !!}
             </div>
           </div>

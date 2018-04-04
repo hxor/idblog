@@ -66,7 +66,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -78,7 +79,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|string|min:3|unique:categories,title,' . $id
+        ]);
+        $request['slug'] = str_slug($request->get('title'), '-');
+
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
