@@ -14,6 +14,8 @@
   <link href="{{ asset('assets/blog-admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Custom fonts for this template-->
   <link href="{{ asset('assets/blog-admin/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+  {{-- Assets Plugin --}}
+  @yield('assets-top')
   <!-- Custom styles for this template-->
   <link href="{{ asset('assets/blog-admin/css/sb-admin.css') }}" rel="stylesheet">
 </head>
@@ -63,6 +65,7 @@
     <script src="{{ asset('assets/blog-admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('assets/blog-admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    @yield('assets-bottom')
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/blog-admin/js/sb-admin.min.js') }}"></script>
   </div>
