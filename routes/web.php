@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admin/users', 'UserController', ['as' => 'admin']);
+
+Route::get('/api/datatable/users', 'UserController@dataTable')->name('api.datatable.users');

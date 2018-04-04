@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class UserController extends Controller
 {
@@ -81,5 +82,31 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dataTable()
+    {
+        $users = User::query();
+        return DataTables::of($users)
+            ->addColumn('user', function ($users) {
+                return '<img src="image/user-icon.png" height="32" width="32"> ' . $users->name;
+            })
+            ->addColumn('action', function ($users) {
+                return '
+                    <button type="button" class="btn btn-sm btn-outline-info" style="padding-bottom: 0px; padding-top: 0px;">
+                    Show
+                    <span class="btn-label btn-label-right"><i class="fa fa-eye"></i></span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="padding-bottom: 0px; padding-top: 0px;">
+                        Edit
+                        <span class="btn-label btn-label-right"><i class="fa fa-edit"></i></span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" style="padding-bottom: 0px; padding-top: 0px;">
+                        Show
+                        <span class="btn-label btn-label-right"><i class="fa fa-trash"></i></span>
+                    </button>
+                ';
+            })
+            ->rawColumns(['user', 'action'])->make(true);
     }
 }
