@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('admin/users', 'UserController', ['as' => 'admin']);
+Route::resource('/admin/users', 'UserController', ['as' => 'admin']);
+Route::resource('/admin/categories', 'CategoryController', ['as' => 'admin']);
 
 Route::get('/api/datatable/users', 'UserController@dataTable')->name('api.datatable.users');
+Route::get('/api/datatable/categories', 'CategoryController@dataTable')->name('api.datatable.categories');
