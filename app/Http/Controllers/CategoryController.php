@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -36,7 +36,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|string|min:3|unique:categories'
+        ]);
+        $request['slug'] = str_slug($request->get('title'), '-');
+
+        Category::create($request->all());
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
