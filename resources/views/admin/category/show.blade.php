@@ -5,7 +5,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Users</a>
+            <a href="#">Categories</a>
           </li>
           <li class="breadcrumb-item active">Show Detail</li>
         </ol>
@@ -14,29 +14,21 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header text-white bg-primary">
-                User Detail : {{ $user->name }}
+                Category Detail : {{ $category->title }}
               </div>
               <div class="card-body">
                   <table class="table table-striped">
                       <tr>
                           <th>ID</th>
-                          <td>{{ $user->id }}</td>
+                          <td>{{ $category->id }}</td>
                       </tr>
                       <tr>
-                          <th>Name</th>
-                          <td>{{ $user->name }}</td>
+                          <th>Slug</th>
+                          <td>{{ $category->slug }}</td>
                       </tr>
                       <tr>
-                          <th>E-Mail</th>
-                          <td>{{ $user->email }}</td>
-                      </tr>
-                      <tr>
-                          <th>Role</th>
-                          <td>{{ $user->role }}</td>
-                      </tr>
-                      <tr>
-                          <th>Avatar</th>
-                          <td><img src="{{ asset($user->avatar) }}" alt="Avatar" height="150" width="150"></td>
+                          <th>Title</th>
+                          <td>{{ $category->title }}</td>
                       </tr>
                   </table>
               </div>
