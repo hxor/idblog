@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->string('image');
             $table->boolean('status');
-            $table->date('date_publish');
+            $table->date('published_at')->nullable();
             $table->timestamps();
         });
     }

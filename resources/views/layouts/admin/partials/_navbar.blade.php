@@ -18,10 +18,10 @@
             </a>
             <ul class="sidenav-second-level collapse" id="collapseMulti">
             <li>
-                <a href="post-index.html">All Posts</a>
+                <a href="{{ route('admin.posts.index') }}">All Posts</a>
             </li>
             <li>
-                <a href="post-create.html">Add New</a>
+                <a href="{{ route('admin.posts.create') }}">Add New</a>
             </li>
             <li>
                 <a href="{{ route('admin.categories.index') }}">Categories</a>
