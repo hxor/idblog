@@ -17,11 +17,12 @@ class CreateSettingsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('tagline');
-            $table->text('address');
+            $table->string('email');
             $table->string('phone')->default('#');
-            $table->string('facebook')->default('#');
-            $table->string('twitter')->default('#');
-            $table->string('instagram')->default('#');
+            $table->text('address');
+            $table->string('so_facebook')->default('#');
+            $table->string('so_twitter')->default('#');
+            $table->string('so_instagram')->default('#');
             $table->timestamps();
         });
     }
