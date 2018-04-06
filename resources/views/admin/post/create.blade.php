@@ -8,8 +8,13 @@
             	    selector: '#textarea',
             	    height: 500,
             		theme: 'modern',
-            		plugins: 'print preview fullpage  searchreplace autolink directionality  visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount   imagetools    contextmenu colorpicker textpattern help',
-            		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+            		plugins: [
+                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen",
+                        "insertdatetime media nonbreaking save table contextmenu directionality",
+                        "emoticons template paste textcolor colorpicker textpattern"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
             		fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
                     image_advtab: true,
             		content_css: [
@@ -52,7 +57,7 @@
           </li>
           <li class="breadcrumb-item active">Add New</li>
         </ol>
-        {!! Form::open(['route' => 'admin.posts.store', 'method' => 'POST']) !!}            
+        {!! Form::open(['route' => 'admin.posts.store', 'method' => 'POST', 'files' => true]) !!}            
               @include('admin.post._form')
         {!! Form::close() !!}
     </div>
@@ -63,7 +68,7 @@
     <script src="{{ asset('assets/blog-admin/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
         $(document).ready( function () {
-            $('#image').filemanager('image');
+            $('#lfm').filemanager('image');
 
             $("#datetime").datetimepicker({
                 format: 'yyyy-mm-dd hh:ii:00',
