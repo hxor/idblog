@@ -55,9 +55,9 @@
           <li class="breadcrumb-item">
             <a href="#">Posts</a>
           </li>
-          <li class="breadcrumb-item active">Add New</li>
+          <li class="breadcrumb-item active">Edit</li>
         </ol>
-        {!! Form::open(['route' => 'admin.posts.store', 'method' => 'POST']) !!}            
+        {!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PUT']) !!}            
               @include('admin.post._form')
         {!! Form::close() !!}
     </div>

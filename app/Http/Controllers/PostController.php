@@ -39,11 +39,12 @@ class PostController extends Controller
         $this->validate($request, [
             'user_id' => 'required',
             'category_id' => 'required',
-            'title' => 'required|string|min:5',
+            'title' => 'required|string|min:5|unique:posts,title',
             'body' => 'required|min:20',
-            'status' => 'required',
-            'published_at' => 'required'
+            'status' => 'required'
         ]);
+
+        $request['published_at'] = $request->get('published_at') == null ? date("Y-m-d H:i:s") : $request->get('published_at');
         $request['slug'] = str_slug($request->get('title'), '-');
 
         Post::create($request->all());
@@ -71,7 +72,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -83,7 +85,21 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required',
+            'category_id' => 'required',
+            'title' => 'required|string|min:5|unique:posts,title,' . $id,
+            'body' => 'required|min:20',
+            'status' => 'required'
+        ]);
+
+        $request['published_at'] = $request->get('published_at') == null ? date("Y-m-d H:i:s") : $request->get('published_at');
+        $request['slug'] = str_slug($request->get('title'), '-');
+
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
