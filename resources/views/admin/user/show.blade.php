@@ -45,12 +45,3 @@
         </div>
     </div>
 @endsection
-
-@section('assets-bottom')
-    <script src="{{ asset('vendor/laravel-filemanager/js/lfm.js') }}"></script>
-    <script>
-        $(document).ready( function () {
-            $('#lfm').filemanager('image');
-        });
-    </script>
-@endsection

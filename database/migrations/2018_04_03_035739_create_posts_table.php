@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->boolean('status');
             $table->string('featured')->nullable();
-            $table->date('published_at')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
