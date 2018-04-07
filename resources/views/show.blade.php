@@ -25,25 +25,25 @@
                       <div class="post-body">
                         {!! $post->body !!}
                       </div>
-                        <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
-                            @if ($prev)
-                                <a href="{{ url('/blog/' .$prev->slug) }}" class="prev-post text-left d-flex align-items-center">
-                                    <div class="icon prev"><i class="fa fa-angle-left"></i></div>
-                                    <div class="text"><strong class="text-primary">Previous Post </strong>
-                                        <h6>{{ $prev->title }}.</h6>
-                                    </div>
-                                </a>
-                            @endif
+                      <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row">
+                          @if ($prev)
+                              <a href="{{ url('/blog/' .$prev->slug) }}" class="prev-post text-left d-flex align-items-center">
+                                  <div class="icon prev"><i class="fa fa-angle-left"></i></div>
+                                  <div class="text"><strong class="text-primary">Previous Post </strong>
+                                      <h6>{{ $prev->title }}.</h6>
+                                  </div>
+                              </a>
+                          @endif
 
-                            @if ($next)
-                                <a href="{{ url('/blog/' .$next->slug) }}" class="next-post text-right d-flex align-items-center justify-content-end">
-                                    <div class="text"><strong class="text-primary">Next Post </strong>
-                                        <h6>{{ $next->title }}.</h6>
-                                    </div>
-                                    <div class="icon next"><i class="fa fa-angle-right">   </i></div>
-                                </a>
-                            @endif
-                        </div>
+                          @if ($next)
+                              <a href="{{ url('/blog/' .$next->slug) }}" class="next-post text-right d-flex align-items-center justify-content-end">
+                                  <div class="text"><strong class="text-primary">Next Post </strong>
+                                      <h6>{{ $next->title }}.</h6>
+                                  </div>
+                                  <div class="icon next"><i class="fa fa-angle-right">   </i></div>
+                              </a>
+                          @endif
+                      </div>
                       <div class="post-comments">
                         <header>
                           <h3 class="h6">Post Comments<span class="no-of-comments">(3)</span></h3>
@@ -82,26 +82,44 @@
                           </div>
                         </div>
                       </div>
+
                       <div class="add-comment">
                         <header>
                           <h3 class="h6">Leave a reply</h3>
                         </header>
-                        <form action="#" class="commenting-form">
+                          {!! Form::open(['route' => ['post.comment', $post->slug], 'method' => 'POST', 'class' => 'commenting-form']) !!}
+                          {{ csrf_field() }}
+                          <input type="hidden" name="post_id" value="{{ $post->id }}">
                           <div class="row">
                             <div class="form-group col-md-6">
-                              <input type="text" name="username" id="username" placeholder="Name" class="form-control">
+                              {!! Form::text('name', null, ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Enter Your Name', 'required']) !!}
+                              @if ($errors->has('name'))
+                                  <span class="invalid-feedback">
+                                      <strong>{{ $errors->first('name') }}</strong>
+                                  </span>
+                              @endif
                             </div>
                             <div class="form-group col-md-6">
-                              <input type="email" name="username" id="useremail" placeholder="Email Address (will not be published)" class="form-control">
+                              {!! Form::email('email', null, ['class' => $errors->has('email') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Enter Your Email (Will not be published)', 'required']) !!}
+                              @if ($errors->has('email'))
+                                  <span class="invalid-feedback">
+                                      <strong>{{ $errors->first('email') }}</strong>
+                                  </span>
+                              @endif
                             </div>
                             <div class="form-group col-md-12">
-                              <textarea name="usercomment" id="usercomment" placeholder="Type your comment" class="form-control"></textarea>
+                              {!! Form::textarea('body', null, ['id' => 'textarea', 'class' => $errors->has('body') ? 'form-control is-invalid' : 'form-control', 'placeholder' => 'Type Your Comment Here', 'required']) !!}
+                              @if ($errors->has('body'))
+                                  <span class="invalid-feedback">
+                                      <strong>{{ $errors->first('body') }}</strong>
+                                  </span>
+                              @endif
                             </div>
                             <div class="form-group col-md-12">
                               <button type="submit" class="btn btn-secondary">Submit Comment</button>
                             </div>
                           </div>
-                        </form>
+                        {!! Form::close() !!}
                       </div>
                     </div>
                   </div>
