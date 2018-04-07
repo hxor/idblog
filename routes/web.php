@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/admin/users', 'UserController', ['as' => 'admin']);
 Route::resource('/admin/categories', 'CategoryController', ['as' => 'admin']);
 Route::resource('/admin/posts', 'PostController', ['as' => 'admin']);
+Route::resource('/admin/comments', 'CommentController', ['as' => 'admin', 'except' => ['create', 'store']]);
 
 Route::get('/admin/settings/', 'SettingController@index')->name('admin.settings.index');
 Route::post('/admin/settings/', 'SettingController@store')->name('admin.settings.store');
@@ -31,3 +32,4 @@ Route::post('/admin/settings/', 'SettingController@store')->name('admin.settings
 Route::get('/api/datatable/users', 'UserController@dataTable')->name('api.datatable.users');
 Route::get('/api/datatable/categories', 'CategoryController@dataTable')->name('api.datatable.categories');
 Route::get('/api/datatable/posts', 'PostController@dataTable')->name('api.datatable.posts');
+Route::get('/api/datatable/comments', 'CommentController@dataTable')->name('api.datatable.comments');
