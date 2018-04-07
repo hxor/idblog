@@ -1,6 +1,6 @@
 <div class="widget latest-posts">
     <header>
-        <h3 class="h6">Latest Posts</h3>
+        <h3 class="h6">Latest Comments</h3>
     </header>
     <div class="blog-posts"><a href="#">
         <div class="item d-flex align-items-center">

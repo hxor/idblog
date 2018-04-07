@@ -12,9 +12,7 @@
 */
 
 Route::get('/', 'IndexController@index');
-Route::get('/blog', function () {
-    return view('blog');
-});
+Route::get('/blog', 'IndexController@blog');
 
 Auth::routes();
 
