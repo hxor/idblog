@@ -2,16 +2,16 @@
         <div class="row">
           <div class="col-md-4">
             <div class="logo">
-              <h6 class="text-white">IDBlog</h6>
+              <h6 class="text-white">{{ $setting->title }}</h6>
             </div>
             <div class="contact-details">
-              <p>53 Broadway, Broklyn, NY 11249</p>
-              <p>Phone: (020) 123 456 789</p>
-              <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
+              <p>{{ $setting->address }}</p>
+              <p>Phone: {{ $setting->phone }}</p>
+              <p>Email: <a href="mailto:{{ $setting->email }}">{{ $setting->email }}</a></p>
               <ul class="social-menu">
-                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="{{ $setting->so_facebook }}"><i class="fa fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="{{ $setting->so_twitter }}"><i class="fa fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="{{ $setting->so_instagram }}"><i class="fa fa-instagram"></i></a></li>
               </ul>
             </div>
           </div>
@@ -52,7 +52,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <p>&copy; 2017. All rights reserved. Your great site.</p>
+              <p>&copy; {{ date('Y') }}. All rights reserved. Your great site.</p>
             </div>
             <div class="col-md-6 text-right">
               <p>Template By <a href="https://bootstraptemple.com" class="text-white">Bootstrap Temple</a>
