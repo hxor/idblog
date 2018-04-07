@@ -26,7 +26,8 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('admin.comment.show', compact('comment'));
     }
 
     /**
@@ -72,6 +73,9 @@ class CommentController extends Controller
             })
             ->addColumn('post', function ($comment) {
                 return substr($comment->post->title, 0, 30);
+            })
+            ->addColumn('status', function ($comment) {
+                return $comment->status == 0 ? 'Draft' : 'Published';
             })
             ->addColumn('action', function ($comment) {
                 return view('layouts.admin.partials._action', [

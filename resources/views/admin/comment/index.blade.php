@@ -30,6 +30,7 @@
                     <th>Name</th>
                     <th>Comment</th>
                     <th>Post</th>
+                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -39,6 +40,7 @@
                     <th>Name</th>
                     <th>Comment</th>
                     <th>Post</th>
+                    <th>Status</th>
                     <th></th>
                   </tr>
                 </tfoot>
@@ -70,6 +72,7 @@
                     {data: 'name', name: 'name'},
                     {data: 'comment', name: 'comment'},
                     {data: 'post', name: 'post'},
+                    {data: 'status', name: 'status'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             })
