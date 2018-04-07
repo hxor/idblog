@@ -38,7 +38,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('admin.comment.edit', compact('comment'));
     }
 
     /**
@@ -50,7 +51,17 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'body' => 'required',
+            'status' => 'required'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $comment->update($request->all());
+
+        return redirect()->route('admin.comments.index');
     }
 
     /**
