@@ -13,6 +13,7 @@
 
 Route::get('/', 'IndexController@index');
 Route::get('/blog', 'IndexController@blog');
+Route::get('/blog/{slug}', 'IndexController@show');
 
 Auth::routes();
 
