@@ -32,19 +32,18 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="latest-posts"><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="{{ asset('assets/blog/img/small-thumbnail-1.jpg') }}" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="{{ asset('assets/blog/img/small-thumbnail-2.jpg') }}" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="{{ asset('assets/blog/img/small-thumbnail-3.jpg') }}" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a></div>
+            <div class="latest-posts">
+              @foreach (\App\Post::inRandomOrder()->limit(3)->get() as $post)
+              <a href="{{ url('/blog/' .$post->slug) }}">
+                  <div class="post d-flex align-items-center">
+                    <div class="image"><img src="{{ asset($post->featured) }}" alt="..." class="img-fluid"></div>
+                    <div class="title"><strong>{{ $post->title }}</strong>
+                      <span class="date last-meta">{{ \Carbon\Carbon::parse($post->published_at)->toFormattedDateString() }}</span>
+                    </div>
+                  </div>
+                </a>
+              @endforeach
+            </div>
           </div>
         </div>
     </div>
