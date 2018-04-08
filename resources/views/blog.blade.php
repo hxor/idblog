@@ -30,7 +30,7 @@
               </div>
               <!-- Pagination -->
               <nav aria-label="Page navigation example">
-                {!! $posts->links('vendor.pagination.bootstrap-4') !!}
+                {!! $posts->appends(request()->query())->links('vendor.pagination.bootstrap-4') !!}
               </nav>
             </div>
           </main>
