@@ -45,11 +45,14 @@
                           @endif
                       </div>
                       <div class="post-comments">
+                        @php
+                            $comments = $post->comments->where('status', 1);
+                        @endphp
                         <header>
-                          <h3 class="h6">Post Comments<span class="no-of-comments">({{ $post->comments()->count() }})</span></h3>
+                          <h3 class="h6">Post Comments<span class="no-of-comments">({{ $comments->count() }})</span></h3>
                         </header>
-                        @if ($post->comments)
-                          @foreach ($post->comments as $comment)
+                        @if ($comments)
+                          @foreach ($comments as $comment)
                             <div class="comment">
                               <div class="comment-header d-flex justify-content-between">
                                 <div class="user d-flex align-items-center">
