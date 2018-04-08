@@ -17,6 +17,8 @@ Route::get('/blog/{slug}', 'IndexController@show');
 
 Route::post('/blog/{slug}/comment', 'IndexController@comment')->name('post.comment');
 
+Route::get('/blog/category/{slug}', 'IndexController@blogCategory');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

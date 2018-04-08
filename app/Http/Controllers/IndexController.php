@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Category;
 use App\Comment;
 use App\Setting;
 use Illuminate\Http\Request;
@@ -25,6 +26,14 @@ class IndexController extends Controller
     {
         $setting = $this->setting();
         $posts = Post::where('status', 1)->orderBy('published_at', 'DESC')->paginate(4);
+        return view('blog', compact('setting', 'posts'));
+    }
+
+    public function blogCategory($slug)
+    {
+        $setting = $this->setting();
+        $category = Category::where('slug', $slug)->first();
+        $posts = Post::where('category_id', $category->id)->where('status', 1)->orderBy('published_at', 'DESC')->paginate(4);
         return view('blog', compact('setting', 'posts'));
     }
 
