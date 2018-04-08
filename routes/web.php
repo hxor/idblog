@@ -23,17 +23,21 @@ Route::get('/search', 'IndexController@blogSearch');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function() {
+    Route::get('/', 'HomeController@index')->name('index');
 
-Route::resource('/admin/users', 'UserController', ['as' => 'admin']);
-Route::resource('/admin/categories', 'CategoryController', ['as' => 'admin']);
-Route::resource('/admin/posts', 'PostController', ['as' => 'admin']);
-Route::resource('/admin/comments', 'CommentController', ['as' => 'admin', 'except' => ['create', 'store']]);
+    Route::resource('/users', 'UserController');
+    Route::resource('/categories', 'CategoryController');
+    Route::resource('/posts', 'PostController');
+    Route::resource('/comments', 'CommentController', ['except' => ['create', 'store']]);
 
-Route::get('/admin/settings/', 'SettingController@index')->name('admin.settings.index');
-Route::post('/admin/settings/', 'SettingController@store')->name('admin.settings.store');
+    Route::get('/settings', 'SettingController@index')->name('settings.index');
+    Route::post('/settings', 'SettingController@store')->name('settings.store');
+});
 
-Route::get('/api/datatable/users', 'UserController@dataTable')->name('api.datatable.users');
-Route::get('/api/datatable/categories', 'CategoryController@dataTable')->name('api.datatable.categories');
-Route::get('/api/datatable/posts', 'PostController@dataTable')->name('api.datatable.posts');
-Route::get('/api/datatable/comments', 'CommentController@dataTable')->name('api.datatable.comments');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/api/datatable/users', 'UserController@dataTable')->name('api.datatable.users');
+    Route::get('/api/datatable/categories', 'CategoryController@dataTable')->name('api.datatable.categories');
+    Route::get('/api/datatable/posts', 'PostController@dataTable')->name('api.datatable.posts');
+    Route::get('/api/datatable/comments', 'CommentController@dataTable')->name('api.datatable.comments');
+});
