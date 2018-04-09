@@ -8,6 +8,12 @@ use Yajra\Datatables\Datatables;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin', ['only' => ['edit', 'update', 'destroy']]);
+        $this->middleware('role:author,admin', ['only' => ['create', 'store', 'index']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
