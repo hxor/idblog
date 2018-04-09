@@ -11,7 +11,7 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('settings')->truncate();
+        // DB::table('settings')->truncate();
 
         $settings = [
             'title' => 'IDBlog',

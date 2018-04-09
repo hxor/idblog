@@ -11,7 +11,7 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('comments')->truncate();
+        // DB::table('comments')->truncate();
 
         $comments = [
             [
