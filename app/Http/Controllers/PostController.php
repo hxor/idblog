@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Auth;
 
 class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:admin', ['only' => ['edit', 'update', 'destroy']]);
-        $this->middleware('role:author,admin', ['only' => ['create', 'store', 'index']]);
+        $this->middleware('role:admin', ['only' => ['destroy']]);
+        $this->middleware('role:author,admin', ['only' => ['create', 'store', 'index', 'edit', 'update']]);
     }
 
     /**
@@ -79,7 +80,10 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('admin.post.edit', compact('post'));
+        if (Auth::user()->role == 'admin' || Auth::user()->id == $post->user_id) {
+            return view('admin.post.edit', compact('post'));
+        }
+        return abort(401);
     }
 
     /**
@@ -91,6 +95,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
+        
+        if (Auth::user()->role == 'admin' || Auth::user()->id == $post->user_id) {
+            return view('admin.post.edit', compact('post'));
+        }
+
         $this->validate($request, [
             'user_id' => 'required',
             'category_id' => 'required',
@@ -102,7 +112,6 @@ class PostController extends Controller
         $request['published_at'] = $request->get('published_at') == null ? date("Y-m-d H:i:s") : $request->get('published_at');
         $request['slug'] = str_slug($request->get('title'), '-');
 
-        $post = Post::findOrFail($id);
         $post->update($request->all());
 
         return redirect()->route('admin.posts.index');
