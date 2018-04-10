@@ -56,6 +56,10 @@
         </ul>
         <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+            <a href="{{ url('/') }}" class="nav-link">
+            <i class="fa fa-fw fa-sign-in"></i>Site</a>
+        </li>
+        <li class="nav-item">
             <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Search for...">
