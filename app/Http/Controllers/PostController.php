@@ -96,25 +96,25 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-        
+
         if (Auth::user()->role == 'admin' || Auth::user()->id == $post->user_id) {
-            return view('admin.post.edit', compact('post'));
+            $this->validate($request, [
+                'user_id' => 'required',
+                'category_id' => 'required',
+                'title' => 'required|string|min:5|unique:posts,title,' . $id,
+                'body' => 'required|min:20',
+                'status' => 'required'
+            ]);
+    
+            $request['published_at'] = $request->get('published_at') == null ? date("Y-m-d H:i:s") : $request->get('published_at');
+            $request['slug'] = str_slug($request->get('title'), '-');
+    
+            $post->update($request->all());
+    
+            return redirect()->route('admin.posts.index');
         }
 
-        $this->validate($request, [
-            'user_id' => 'required',
-            'category_id' => 'required',
-            'title' => 'required|string|min:5|unique:posts,title,' . $id,
-            'body' => 'required|min:20',
-            'status' => 'required'
-        ]);
-
-        $request['published_at'] = $request->get('published_at') == null ? date("Y-m-d H:i:s") : $request->get('published_at');
-        $request['slug'] = str_slug($request->get('title'), '-');
-
-        $post->update($request->all());
-
-        return redirect()->route('admin.posts.index');
+        return abort(401);
     }
 
     /**
