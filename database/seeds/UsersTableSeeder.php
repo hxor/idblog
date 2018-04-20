@@ -14,8 +14,20 @@ class UsersTableSeeder extends Seeder
         // DB::table('users')->truncate();
 
         $users = [
-            ['name' => 'Admin', 'email' => 'admin@mail.com', 'password' => bcrypt('password'), 'role' => 'admin', 'avatar' => '/images/user-icon.png'],
-            ['name' => 'Author', 'email' => 'author@mail.com', 'password' => bcrypt('password'), 'role' => 'author', 'avatar' => '/images/user-icon.png'],
+            [
+                'name' => 'Admin', 
+                'email' => 'admin@mail.com', 
+                'password' => bcrypt('password'), 
+                'role' => 'admin', 
+                'avatar' => '/images/user-icon.png'
+            ],
+            [
+                'name' => 'Author', 
+                'email' => 'author@mail.com', 
+                'password' => bcrypt('password'), 
+                'role' => 'author', 
+                'avatar' => '/images/user-icon.png'
+            ],
         ];
 
         DB::table('users')->insert($users);
